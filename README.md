@@ -28,7 +28,7 @@ This is my Telegram bot that I use to remotely manage Windows PC on my network. 
 
 4. Run the bot:
     ```bash
-    python wol-bot/wol-bot.py
+    python3 wol-bot.py
     ```
 
 ## ⚠️ Security Notes
