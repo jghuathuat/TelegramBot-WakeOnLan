@@ -1,0 +1,38 @@
+[Unit]
+Description=Telegram Bot for WoL and PC Control
+# Ensures network is available before starting
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+# --- Configuration via Environment File ---
+# Loads environment variables from the specified file.
+# Ensure this file exists, is readable by 'User=', and has correct KEY=VALUE format.
+# Make sure the file has secure permissions (e.g., chmod 600).
+EnvironmentFile=/opt/TelegramBot-WakeOnLan/.env/bot.conf
+
+# --- Execution ---
+# Option 1: If script is executable (chmod +x your_script.py) and has shebang
+# ExecStart=/path/to/your/telegram_wol_bot.py
+# Option 2: Execute with python3 interpreter explicitly (often safer)
+# Make sure the path to your python script is correct.
+ExecStart=/usr/bin/python3 /opt/TelegramBot-WakeOnLan/wol-bot.py
+
+# --- Security & Working Directory ---
+# Run as a dedicated, non-root user (create this user first: useradd -r -s /bin/false botuser)
+User=ansible
+Group=ansible
+# Set the working directory. Useful if the script needs relative paths (though absolute is preferred).
+# This should be a directory the 'User=' has access to.
+WorkingDirectory=/opt/TelegramBot-WakeOnLan/
+
+# --- Process Management ---
+Restart=on-failure       # Restart the service if the script exits with an error
+RestartSec=5s            # Wait 5 seconds before attempting restart
+TimeoutStopSec=60s       # Max time (seconds) to wait for the script to stop gracefully
+StandardOutput=journal   # Redirect stdout to systemd journal (view with journalctl)
+StandardError=journal    # Redirect stderr to systemd journal
+
+[Install]
+# Enable this service to start automatically on boot in multi-user mode
+WantedBy=multi-user.target
