@@ -1,7 +1,7 @@
 # TelegramBot-WakeOnLan
 
 ## 🚀 Project Overview
-This is my Telegram bot that I use to remotely manage Windows PC on my network. It allows me to send Wake-on-LAN (WoL) packets to wake up Windows PC, as well as perform actions like restarting or shutting it down.
+This is my Telegram bot that I use to remotely manage Windows PC on my network. It allows me to send Wake-on-LAN (WoL) packets to wake up Windows PC, as well as perform actions like restarting or shutting it down. Added a `.service` file to additionally run it as a systemd service.
 
 ## 📋 Requirements
 - Python 3.8+
